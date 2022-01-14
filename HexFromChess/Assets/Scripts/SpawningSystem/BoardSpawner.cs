@@ -12,11 +12,7 @@ namespace DAE.SpawningSystem
 
         void Awake()
         {
-            var minCameraHeight = 7.5f;
-            var cameraHeight = 2.5f * _radiusWithoutCenter;
-            cameraHeight = Mathf.Max(cameraHeight, minCameraHeight);
-
-            FindObjectOfType<Camera>().transform.position = new Vector3(0, cameraHeight, -cameraHeight / (2.25f * 2.5f));
+            AdjustCameraDistance();
 
             var boardParent = new GameObject("BoardParent");
             for (int q = -_radiusWithoutCenter; q <= _radiusWithoutCenter; q++)
@@ -36,6 +32,15 @@ namespace DAE.SpawningSystem
                     hexShape.transform.localScale *= _hexScale;
                 }
             }
+        }
+
+        private void AdjustCameraDistance()
+        {
+            var minCameraHeight = 7.5f;
+            var cameraHeight = 2.5f * _radiusWithoutCenter;
+            cameraHeight = Mathf.Max(cameraHeight, minCameraHeight);
+
+            FindObjectOfType<Camera>().transform.position = new Vector3(0, cameraHeight, -cameraHeight / (2.25f * 2.5f));
         }
     }
 }
