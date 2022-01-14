@@ -3,26 +3,26 @@ using System;
 
 namespace DAE.BoardSystem
 {
-    public class PlacedEventArgs<TPosition, TPiece> : EventArgs
+    public class PlacedEventArgs<THex, TPiece> : EventArgs
     {
-        public TPosition ToPosition { get; }
+        public THex ToPosition { get; }
 
         public TPiece Piece { get; }
 
-        public PlacedEventArgs(TPosition toPosition, TPiece piece)
+        public PlacedEventArgs(THex toPosition, TPiece piece)
         {
             ToPosition = toPosition;
             Piece = piece;
         }
     }
 
-    public class MovedEventArgs<TPosition, TPiece> : EventArgs
+    public class MovedEventArgs<THex, TPiece> : EventArgs
     {
-        public TPosition ToPosition { get; }
-        public TPosition FromPosition { get; }
+        public THex ToPosition { get; }
+        public THex FromPosition { get; }
         public TPiece Piece { get; }
 
-        public MovedEventArgs(TPosition toPosition, TPosition fromPosition, TPiece piece)
+        public MovedEventArgs(THex toPosition, THex fromPosition, TPiece piece)
         {
             ToPosition = toPosition;
             FromPosition = fromPosition;
@@ -30,12 +30,12 @@ namespace DAE.BoardSystem
         }
     }
 
-    public class TakenEventArgs<TPosition, TPiece> : EventArgs
+    public class TakenEventArgs<THex, TPiece> : EventArgs
     {
-        public TPosition FromPosition { get; }
+        public THex FromPosition { get; }
         public TPiece Piece { get; }
 
-        public TakenEventArgs(TPosition fromPosition, TPiece piece)
+        public TakenEventArgs(THex fromPosition, TPiece piece)
         {
             FromPosition = fromPosition;
             Piece = piece;
@@ -43,17 +43,17 @@ namespace DAE.BoardSystem
     }
 
 
-    public class Board<TPosition, TPiece> 
+    public class Board<THex, TPiece> 
     {
 
-        public event EventHandler<PlacedEventArgs<TPosition, TPiece>> Placed;
-        public event EventHandler<MovedEventArgs<TPosition, TPiece>> Moved;
-        public event EventHandler<TakenEventArgs<TPosition, TPiece>> Taken;
+        public event EventHandler<PlacedEventArgs<THex, TPiece>> Placed;
+        public event EventHandler<MovedEventArgs<THex, TPiece>> Moved;
+        public event EventHandler<TakenEventArgs<THex, TPiece>> Taken;
 
-        private BidirectionalDictionary<TPosition, TPiece> _positionPiece = new BidirectionalDictionary<TPosition, TPiece>();
+        private BidirectionalDictionary<THex, TPiece> _positionPiece = new BidirectionalDictionary<THex, TPiece>();
 
 
-        public bool Place(TPiece piece, TPosition toPosition)
+        public bool Place(TPiece piece, THex toPosition)
         {
             if (TryGetPieceAt(toPosition, out _))
                 return false;
@@ -62,12 +62,12 @@ namespace DAE.BoardSystem
                 return false;
 
             _positionPiece.Add(toPosition, piece);
-            OnPlaced(new PlacedEventArgs<TPosition, TPiece>(toPosition, piece));
+            OnPlaced(new PlacedEventArgs<THex, TPiece>(toPosition, piece));
 
             return true;
         }
 
-        public bool Move(TPiece piece, TPosition toPosition)
+        public bool Move(TPiece piece, THex toPosition)
         {
             if (TryGetPieceAt(toPosition, out _))
                 return false;
@@ -76,7 +76,7 @@ namespace DAE.BoardSystem
                 return false;
             
             _positionPiece.Add(toPosition, piece);
-            OnMoved(new MovedEventArgs<TPosition, TPiece>(toPosition, fromPosition, piece));
+            OnMoved(new MovedEventArgs<THex, TPiece>(toPosition, fromPosition, piece));
 
             return true;
             
@@ -90,33 +90,33 @@ namespace DAE.BoardSystem
             if (!_positionPiece.Remove(piece))
                 return false;
             
-            OnTaken(new TakenEventArgs<TPosition, TPiece>(fromPosition, piece));
+            OnTaken(new TakenEventArgs<THex, TPiece>(fromPosition, piece));
             return true;
             
         }
 
 
-        public bool TryGetPieceAt(TPosition position, out TPiece piece)
+        public bool TryGetPieceAt(THex position, out TPiece piece)
             =>  _positionPiece.TryGetValue(position, out piece);
 
-        public bool TryGetPositionOf(TPiece piece, out TPosition position)
+        public bool TryGetPositionOf(TPiece piece, out THex position)
             => _positionPiece.TryGetKey(piece, out position);
 
 
         #region EventTriggers
-        protected virtual void OnPlaced(PlacedEventArgs<TPosition, TPiece> eventArgs)
+        protected virtual void OnPlaced(PlacedEventArgs<THex, TPiece> eventArgs)
         {
             var handler = Placed;
             handler?.Invoke(this, eventArgs);
         }
 
-        protected virtual void OnMoved(MovedEventArgs<TPosition, TPiece> eventArgs)
+        protected virtual void OnMoved(MovedEventArgs<THex, TPiece> eventArgs)
         {
             var handler = Moved;
             handler?.Invoke(this, eventArgs);
         }
 
-        protected virtual void OnTaken(TakenEventArgs<TPosition, TPiece> eventArgs)
+        protected virtual void OnTaken(TakenEventArgs<THex, TPiece> eventArgs)
         {
             var handler = Taken;
             handler?.Invoke(this, eventArgs);

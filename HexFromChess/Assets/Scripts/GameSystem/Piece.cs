@@ -20,35 +20,26 @@ class PieceEventArgs : EventArgs
         => Piece = piece;
 }
 
-class Piece : MonoBehaviour, IPointerClickHandler
+class Piece : MonoBehaviour, IPiece
 {
-    [SerializeField]
-    private HighlightEvent OnHighlight;
-
-    public bool Highlight
-    {
-        set
-        {
-            OnHighlight.Invoke(value);
-        }
-    }
-
-    public event EventHandler<PieceEventArgs> Clicked;
-
-    public void OnPointerClick(PointerEventData eventData)
-        => OnClicked(this, new PieceEventArgs(this));
-    
-
-    protected virtual void  OnClicked(object source, PieceEventArgs e)
-    {
-        var handle = Clicked;
-        Debug.Log("clicked");
-        handle?.Invoke(this, e);
-    }
 
     public override string ToString()
     {
         return gameObject.name;
+    }
+
+    public void MoveTo(Vector3 toCoordinate)
+    {
+        gameObject.transform.position = toCoordinate;
+    }
+    public void Place(Vector3 toCoordinate)
+    {
+        gameObject.transform.position = toCoordinate;
+        gameObject.SetActive(true);
+    }
+    public void Taken()
+    {
+        gameObject.SetActive(false);
     }
 }
 

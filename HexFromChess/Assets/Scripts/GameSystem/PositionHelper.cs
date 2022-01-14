@@ -19,18 +19,18 @@ namespace DAE.GameSystem
         [SerializeField]
         private float _tileDimension = 1;
 
-        public (int x, int y) ToGridPostion(Grid<TileView> grid, Transform parent, Vector3 worldPosition)
+        public (int x, int y) ToGridPostion(Vector3 worldPosition)
         {
-            var qCalc = (Mathf.Sqrt(3f) / 3 * worldPosition.x - 1f / 3f * worldPosition.z) / 0.5f;
-            var rCalc = (2f / 3f * worldPosition.z) / 0.5f;
+            var q = (Mathf.Sqrt(3f) / 3 * worldPosition.x - 1f / 3f * worldPosition.z) / 0.5f;
+            var r = (2f / 3f * worldPosition.z) / 0.5f;
 
-            int q = (int)Mathf.Round(qCalc);
-            int r = (int)Mathf.Round(rCalc);
+            int x = (int)Mathf.Round(q);
+            int y = (int)Mathf.Round(r);
 
-            return (q, r);
+            return (x, y);
         }
 
-        public Vector3 ToWorldPosition(Grid<TileView> grid, Transform parent, int q, int r)
+        public Vector3 ToWorldPosition(int q, int r)
         {
             var worldPosition = Vector3.zero;
 

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 359046968052006033}
-  - component: {fileID: 9084118839724339176}
+  - component: {fileID: 7359147662586877647}
   m_Layer: 0
   m_Name: Hex
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9084118839724339176
+--- !u!114 &7359147662586877647
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,9 +41,53 @@ MonoBehaviour:
   m_GameObject: {fileID: 359046968052006032}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75e67b5a663bc624ea581af408195170, type: 3}
+  m_Script: {fileID: 11500000, guid: 6af1c0802d4dd3e489df13944eb837db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnActivate:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1385423070665016702}
+        m_TargetAssemblyTypeName: UnityEngine.Renderer, UnityEngine
+        m_MethodName: set_material
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 2100000, guid: e0ad4552c95032b46ae8cd2c291dbf70, type: 2}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Material, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnDeactivate:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1385423070665016702}
+        m_TargetAssemblyTypeName: UnityEngine.Renderer, UnityEngine
+        m_MethodName: set_material
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 2100000, guid: dadbb1b8ccc8def43b60d4a68441fe0d, type: 2}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Material, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!64 &628962210891179617
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 593066132839146667}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 2190622540023885545, guid: 983a333a84e5d9e45ac8712403f4c4c9, type: 3}
 --- !u!1001 &359046967646231034
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -107,14 +151,28 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 983a333a84e5d9e45ac8712403f4c4c9, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: dadbb1b8ccc8def43b60d4a68441fe0d, type: 2}
     - target: {fileID: 919132149155446097, guid: 983a333a84e5d9e45ac8712403f4c4c9, type: 3}
       propertyPath: m_Name
       value: HexModel
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 983a333a84e5d9e45ac8712403f4c4c9, type: 3}
+--- !u!1 &593066132839146667 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 983a333a84e5d9e45ac8712403f4c4c9, type: 3}
+  m_PrefabInstance: {fileID: 359046967646231034}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &248030229224848913 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 983a333a84e5d9e45ac8712403f4c4c9, type: 3}
+  m_PrefabInstance: {fileID: 359046967646231034}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1385423070665016702 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 983a333a84e5d9e45ac8712403f4c4c9, type: 3}
   m_PrefabInstance: {fileID: 359046967646231034}
   m_PrefabAsset: {fileID: 0}
