@@ -12,14 +12,6 @@ using UnityEngine.EventSystems;
 [Serializable]
 public class HighlightEvent : UnityEvent<bool> {}
 
-class PieceEventArgs : EventArgs
-{
-    public Piece Piece { get; }
-
-    public PieceEventArgs(Piece piece)
-        => Piece = piece;
-}
-
 class Piece : MonoBehaviour, IPiece
 {
     public void MoveTo(Vector3 toCoordinate)

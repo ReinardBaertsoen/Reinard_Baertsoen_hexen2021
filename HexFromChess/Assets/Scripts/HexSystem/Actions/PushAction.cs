@@ -25,7 +25,6 @@ namespace DAE.HexSystem
 
                     var q = enemyCoordinate.x - playerCoordinate.x;
                     var r = enemyCoordinate.y - playerCoordinate.y;
-                    var s = -q - r;
 
                     q += q + playerCoordinate.x;
                     r += r + playerCoordinate.y;

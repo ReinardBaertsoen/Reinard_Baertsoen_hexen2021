@@ -35,8 +35,7 @@ namespace DAE.GameSystem
 
         public void OnDrop(PointerEventData eventData)
         {
-            Debug.Log(eventData.pointerDrag.name + " was dropped on " + gameObject.name);
-
+            //Debug.Log(eventData.pointerDrag.name + " was dropped on " + gameObject.name);
             Card d = eventData.pointerDrag.GetComponent<Card>();
             if (d != null)
             {

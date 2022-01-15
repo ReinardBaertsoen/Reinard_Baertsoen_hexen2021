@@ -21,8 +21,6 @@ namespace DAE.GameSystem
 		GameObject _placeholder = null;
 
 		[SerializeField] public CardType _cardType;
-
-        bool ICard.Played { get; }
 		public CardType StoredCardType => _cardType;
 
 

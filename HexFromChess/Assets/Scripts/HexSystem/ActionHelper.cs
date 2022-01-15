@@ -48,6 +48,7 @@ namespace DAE.HexSystem
                     return this;
 
                 /*var hasPiece = _board.TryGetPieceAt(nextPosition, out var nextPiece);*/
+                
                 _validPositions.Add(nextPosition);
 
                 nextQCoordinate += qOffset;

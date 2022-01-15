@@ -21,8 +21,6 @@ namespace DAE.SpawningSystem
                 int rPositive = Mathf.Min(_radiusWithoutCenter, -q + _radiusWithoutCenter);
                 for (int r = rNegative; r <= rPositive; r++)
                 {
-                    var s = -q - r;
-
                     var spawnX = (float)(Mathf.Sqrt(3f) * q + Mathf.Sqrt(3f) / 2f * r) * 0.5f;
                     var spawnZ = (3f / 2f * r) * 0.5f;
 

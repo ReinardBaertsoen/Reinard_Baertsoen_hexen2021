@@ -6,8 +6,6 @@ namespace DAE.HexSystem
 {
     public interface ICard
     {
-        bool Played { get; }
-
         CardType StoredCardType { get; }
     }
 
