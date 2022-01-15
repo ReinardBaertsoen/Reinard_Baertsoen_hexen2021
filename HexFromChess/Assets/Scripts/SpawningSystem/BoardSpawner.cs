@@ -36,7 +36,7 @@ namespace DAE.SpawningSystem
 
         private void AdjustCameraDistance()
         {
-            var minCameraHeight = 7.5f;
+            var minCameraHeight = 10;
             var cameraHeight = 2.5f * _radiusWithoutCenter;
             cameraHeight = Mathf.Max(cameraHeight, minCameraHeight);
 
