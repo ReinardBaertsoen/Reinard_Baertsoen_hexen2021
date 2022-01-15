@@ -222,7 +222,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Enemy: {fileID: 2610876566849748901, guid: 42624f0d3ef0ea140a3152155ea9b41e, type: 3}
-  _amountOfEnemies: 4
+  _amountOfEnemies: 6
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0

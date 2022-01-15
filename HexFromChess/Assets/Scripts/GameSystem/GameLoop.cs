@@ -154,8 +154,8 @@ namespace DAE.GameSystem
                 switch (cardNumber)
                 {
                     case 0:
-                        var beam = Instantiate(_teleport, _playerhand.transform);
-                        beam.GetComponent<Card>().BeginDrag += (s, e) =>
+                        var teleport = Instantiate(_teleport, _playerhand.transform);
+                        teleport.GetComponent<Card>().BeginDrag += (s, e) =>
                         {
                             _currentCard = e.Card;
                         };
@@ -175,8 +175,8 @@ namespace DAE.GameSystem
                         };
                         return;
                     case 3:
-                        var teleport = Instantiate(_beam, _playerhand.transform);
-                        teleport.GetComponent<Card>().BeginDrag += (s, e) =>
+                        var beam = Instantiate(_beam, _playerhand.transform);
+                        beam.GetComponent<Card>().BeginDrag += (s, e) =>
                         {
                             _currentCard = e.Card;
                         };
