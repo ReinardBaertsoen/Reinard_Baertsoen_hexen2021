@@ -22,12 +22,6 @@ class PieceEventArgs : EventArgs
 
 class Piece : MonoBehaviour, IPiece
 {
-
-    public override string ToString()
-    {
-        return gameObject.name;
-    }
-
     public void MoveTo(Vector3 toCoordinate)
     {
         gameObject.transform.position = toCoordinate;
