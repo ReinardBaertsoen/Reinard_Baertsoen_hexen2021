@@ -158,7 +158,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Hex: {fileID: 359046968052006032, guid: 09fd47a72afca164e8ec424f6a79b973, type: 3}
-  _radiusWithoutCenter: 9
+  _radiusWithoutCenter: 3
 --- !u!4 &274146242
 Transform:
   m_ObjectHideFlags: 0
@@ -222,7 +222,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Enemy: {fileID: 2610876566849748901, guid: 42624f0d3ef0ea140a3152155ea9b41e, type: 3}
-  _amountOfEnemies: 6
+  _amountOfEnemies: 5
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
