@@ -104,6 +104,8 @@ namespace DAE.HexSystem
                 .IsolatedBottomRight(po)
                 .IsolatedLeft(po)
                 .IsolatedRight(po)
+                .IsolatedAddedPieceOne(po)
+                .IsolatedAddedPieceTwo(po)
                 .Collect()));
             _isolatedAcions.Add(CardType.Push, new PushAction<TCard, TPiece>(
                 (b, g, pi, po, c) => new ActionHelper<TCard, TPiece>(b, g, pi, po, c)
@@ -113,7 +115,8 @@ namespace DAE.HexSystem
                 .IsolatedBottomRight(po, 1)
                 .IsolatedLeft(po, 1)
                 .IsolatedRight(po, 1)
-                .IsolatedAddedPieces(po)
+                .IsolatedAddedPieceOne(po, 1)
+                .IsolatedAddedPieceTwo(po, 1)
                 .Collect()));
             _isolatedAcions.Add(CardType.Slash, new SlashAction<TCard, TPiece>(
                 (b, g, pi, po, c) => new ActionHelper<TCard, TPiece>(b, g, pi, po, c)
@@ -123,7 +126,8 @@ namespace DAE.HexSystem
                 .IsolatedBottomRight(po, 1)
                 .IsolatedLeft(po, 1)
                 .IsolatedRight(po, 1)
-                .IsolatedAddedPieces(po)
+                .IsolatedAddedPieceOne(po, 1)
+                .IsolatedAddedPieceTwo(po, 1)
                 .Collect()));
             _isolatedAcions.Add(CardType.Teleport, new TeleportAction<TCard, TPiece>(
                 (b, g, pi, po, c) => new ActionHelper<TCard, TPiece>(b, g, pi, po, c)

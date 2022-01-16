@@ -13,7 +13,12 @@ namespace DAE.HexSystem
 
         public override void ExecuteAction(Board<Hex, TPiece> board, Grid<Hex> grid, TPiece piece, Hex position, CardType card)
         {
-            foreach (var hex in ValidPositions(board, grid, piece, position, card))
+            List<TPiece> enemies = new List<TPiece>();
+
+            var validPositions = ValidPositions(board, grid, piece, position, card);
+            validPositions.Reverse();
+
+            foreach (var hex in validPositions)
             {
                 if (board.TryGetPieceAt(hex, out var enemy))
                 {
@@ -23,20 +28,24 @@ namespace DAE.HexSystem
                     board.TryGetPositionOf(piece, out var playerPosition);
                     grid.TryGetCoordinateOf(playerPosition, out var playerCoordinate);
 
-                    var q = enemyCoordinate.x - playerCoordinate.x;
-                    var r = enemyCoordinate.y - playerCoordinate.y;
+                    var q = enemyCoordinate.q - playerCoordinate.q;
+                    var r = enemyCoordinate.r - playerCoordinate.r;
+                    var s = -q - r;
 
-                    q += q + playerCoordinate.x;
-                    r += r + playerCoordinate.y;
+                    q += q + playerCoordinate.q;
+                    r += r + playerCoordinate.r;
 
                     grid.TryGetPositionAt(q, r, out var nextEnemyPosition);
 
-                    if (!grid.TryGetPositionAt(q, r, out var deathPosition))
+                    if (!grid.TryGetPositionAt(q, r, out _))
                     {
                         board.Take(enemy);
                     }
                     else
+                    {
                         board.Move(enemy, nextEnemyPosition);
+                        enemies.Add(enemy);
+                    }
                 }
             }
         }

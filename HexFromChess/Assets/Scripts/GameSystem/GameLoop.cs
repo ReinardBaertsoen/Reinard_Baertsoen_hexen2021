@@ -191,7 +191,7 @@ namespace DAE.GameSystem
             {
                 if (_grid.TryGetCoordinateOf(e.ToPosition, out var toCoordinate))
                 {
-                    var worldPosition = _positionHelper.ToWorldPosition(toCoordinate.x, toCoordinate.y);
+                    var worldPosition = _positionHelper.ToWorldPosition(toCoordinate.q, toCoordinate.r);
                     e.Piece.MoveTo(worldPosition);
                 }
             };
@@ -200,7 +200,7 @@ namespace DAE.GameSystem
             {
                 if (_grid.TryGetCoordinateOf(e.ToPosition, out var toCoordinate))
                 {
-                    var worldPosition = _positionHelper.ToWorldPosition(toCoordinate.x, toCoordinate.y);
+                    var worldPosition = _positionHelper.ToWorldPosition(toCoordinate.q, toCoordinate.r);
                     e.Piece.Place(worldPosition);
                 }
             };

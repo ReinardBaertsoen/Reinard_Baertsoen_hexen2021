@@ -158,7 +158,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Hex: {fileID: 359046968052006032, guid: 09fd47a72afca164e8ec424f6a79b973, type: 3}
-  _radiusWithoutCenter: 3
+  _radiusWithoutCenter: 9
 --- !u!4 &274146242
 Transform:
   m_ObjectHideFlags: 0

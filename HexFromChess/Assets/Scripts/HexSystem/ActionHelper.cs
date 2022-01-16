@@ -35,8 +35,8 @@ namespace DAE.HexSystem
             if (!_grid.TryGetCoordinateOf(position, out var coordinate))
                 return this;
 
-            var nextQCoordinate = coordinate.x + qOffset;
-            var nextRCoordinate = coordinate.y + rOffset;
+            var nextQCoordinate = coordinate.q + qOffset;
+            var nextRCoordinate = coordinate.r + rOffset;
 
             var hasNextPosition = _grid.TryGetPositionAt(nextQCoordinate, nextRCoordinate, out var nextPosition);
             int step = 0;
@@ -46,8 +46,6 @@ namespace DAE.HexSystem
                 var isOk = validators.All((v) => v(_board, _grid, _piece, nextPosition));
                 if (!isOk)
                     return this;
-
-                /*var hasPiece = _board.TryGetPieceAt(nextPosition, out var nextPiece);*/
                 
                 _validPositions.Add(nextPosition);
 
@@ -103,8 +101,8 @@ namespace DAE.HexSystem
             if (!_grid.TryGetCoordinateOf(position, out var coordinate))
                 return this;
 
-            var nextQCoordinate = coordinate.x + qOffset;
-            var nextRCoordinate = coordinate.y + rOffset;
+            var nextQCoordinate = coordinate.q + qOffset;
+            var nextRCoordinate = coordinate.r + rOffset;
 
             var hasNextPosition = _grid.TryGetPositionAt(nextQCoordinate, nextRCoordinate, out var nextPosition);
             int step = 0;
@@ -116,8 +114,6 @@ namespace DAE.HexSystem
                 var isOk = validators.All((v) => v(_board, _grid, _piece, nextPosition));
                 if (!isOk)
                     return this;
-
-                /*var hasPiece = _board.TryGetPieceAt(nextPosition, out var nextPiece);*/
 
                 temporaryList.Add(nextPosition);
 
@@ -137,28 +133,74 @@ namespace DAE.HexSystem
             return this;
         }
 
-        public ActionHelper<TCard, TPiece> IsolatedAddedPieces(Hex hexposition, params Validator[] validators)
+        public ActionHelper<TCard, TPiece> IsolatedAddedPieceOne(Hex hexposition, int numTiles = int.MaxValue, params Validator[] validators)
         {
             _board.TryGetPositionOf(_piece, out var piecePosition);
             _grid.TryGetCoordinateOf(piecePosition, out var pieceCoordinate);
 
             _grid.TryGetCoordinateOf(hexposition, out var coordinate);
-            var tempQ = coordinate.x - pieceCoordinate.x;
-            var tempR = coordinate.y - pieceCoordinate.y;
+
+            var tempQ = coordinate.q - pieceCoordinate.q;
+            var tempR = coordinate.r - pieceCoordinate.r;
             var tempS = -tempQ - tempR;
 
-            var q1 = -tempR + pieceCoordinate.x;
-            var r1 = -tempS + pieceCoordinate.y;
+            for (int numTile = 1; numTile <= numTiles; numTile++)
+            {
+                var signedQ = PosNegZero(tempQ);
+                var signedR = PosNegZero(tempR);
+                var signedS = PosNegZero(tempS);
 
-            var q2 = -tempS + pieceCoordinate.x;
-            var r2 = -tempQ + pieceCoordinate.y;
+                var q1 = -signedR * numTile + pieceCoordinate.q;
+                var r1 = -signedS * numTile + pieceCoordinate.r;
 
-            if (_grid.TryGetPositionAt(q1, r1, out var position1) && position1 != piecePosition)
-                _validPositions.Add(position1);
-            if(_grid.TryGetPositionAt(q2, r2, out var position2) && position2 != piecePosition)
-                _validPositions.Add(position2);
+
+                if (_grid.TryGetPositionAt(q1, r1, out var position2) && position2 != piecePosition)
+                    _validPositions.Add(position2);
+                if (!_grid.TryGetPositionAt(q1, r1, out var position1) || position1 == piecePosition)
+                    return this;
+            }
 
             return this;
+        }
+        public ActionHelper<TCard, TPiece> IsolatedAddedPieceTwo(Hex hexposition, int numTiles = int.MaxValue, params Validator[] validators)
+        {
+            _board.TryGetPositionOf(_piece, out var piecePosition);
+            _grid.TryGetCoordinateOf(piecePosition, out var pieceCoordinate);
+
+            _grid.TryGetCoordinateOf(hexposition, out var coordinate);
+
+            var tempQ = coordinate.q - pieceCoordinate.q;
+            var tempR = coordinate.r - pieceCoordinate.r;
+            var tempS = -tempQ - tempR;
+
+            for (int numTile = 1; numTile <= numTiles; numTile++)
+            {
+                var signedQ = PosNegZero(tempQ);
+                var signedR = PosNegZero(tempR);
+                var signedS = PosNegZero(tempS);
+
+                var q2 = -signedS * numTile + pieceCoordinate.q;
+                var r2 = -signedQ * numTile + pieceCoordinate.r;
+
+
+                if (_grid.TryGetPositionAt(q2, r2, out var position2) && position2 != piecePosition)
+                    _validPositions.Add(position2);
+                if (!_grid.TryGetPositionAt(q2, r2, out var position1) || position1 == piecePosition)
+                    return this;
+            }
+
+            return this;
+        }
+        public int PosNegZero(int number)
+        {
+            if (number > 0)
+                return 1;
+            else if (number < 0)
+                return -1;
+            else if (number == 0)
+                return 0;
+            else
+                return 0;
         }
     }
 }
