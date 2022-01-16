@@ -104,8 +104,6 @@ namespace DAE.HexSystem
                 .IsolatedBottomRight(po)
                 .IsolatedLeft(po)
                 .IsolatedRight(po)
-                .IsolatedAddedPieceOne(po)
-                .IsolatedAddedPieceTwo(po)
                 .Collect()));
             _isolatedAcions.Add(CardType.Push, new PushAction<TCard, TPiece>(
                 (b, g, pi, po, c) => new ActionHelper<TCard, TPiece>(b, g, pi, po, c)
