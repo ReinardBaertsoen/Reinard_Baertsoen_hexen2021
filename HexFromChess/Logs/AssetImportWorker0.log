@@ -5623,3 +5623,4 @@ Received Import Request.
 Start importing Assets/Scripts/GameSystem/States/EndScreenState.cs using Guid(b31145abf0ba45e42ae5e829bc6552c4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '96ca9acc8b8a3d0450c9df63bcf013c2') in 0.008537 seconds 
   Import took 0.011539 seconds .
 
+AssetImportWorkerClient::OnTransportError - code=2 error=End of file
