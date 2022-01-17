@@ -2,6 +2,9 @@
 using DAE.HexSystem;
 using UnityEngine;
 using System;
+using System.Collections.Generic;
+using DAE.StateSystem;
+using DAE.GameSystem.GameStates;
 
 namespace DAE.GameSystem
 {
@@ -26,10 +29,23 @@ namespace DAE.GameSystem
         [SerializeField] private GameObject _teleport;
         [SerializeField] private GameObject _slash;
         [SerializeField] private GameObject _push;
+        [SerializeField] private GameObject _bomb;
 
         [SerializeField] private int _turns = 0;
 
         private System.Random _random = new System.Random();
+
+        private List<Card> _usedCards = new List<Card>();
+
+        private StateMachine<GameStateBase> _gameStateMachine;
+
+        [SerializeField] Canvas _startScreenState;
+        [SerializeField] Canvas _playingState;
+        [SerializeField] Canvas _endScreenState;
+
+        private StartScreenState _startScreen;
+        private PlayingState _playingScreen;
+        private EndScreenState _endScreen;
 
         public void Start()
         {
@@ -48,10 +64,36 @@ namespace DAE.GameSystem
             CardListeners();
 
             var cards = FindObjectsOfType<Card>();
-            foreach(var card in cards)
+            foreach (var card in cards)
             {
                 _turns -= 1;
             }
+
+            _gameStateMachine = new StateMachine<GameStateBase>();
+
+
+            _startScreen = new StartScreenState(_gameStateMachine, _startScreenState, _playingState, _endScreenState);
+            _gameStateMachine.Register(GameState.StartScreenState, _startScreen);
+
+            _playingScreen = new PlayingState(_gameStateMachine, _startScreenState, _playingState, _endScreenState);
+            _gameStateMachine.Register(GameState.PlayingState, _playingScreen);
+
+            _endScreen = new EndScreenState(_gameStateMachine, _startScreenState, _playingState, _endScreenState);
+            _gameStateMachine.Register(GameState.EndScreenState, _endScreen);
+
+            _startScreen.StartScreenState = _startScreenState;
+            _startScreen.PlayingState = _playingState;
+            _startScreen.EndScreenState = _endScreenState;
+
+            _playingScreen.StartScreenState = _startScreenState;
+            _playingScreen.PlayingState = _playingState;
+            _playingScreen.EndScreenState = _endScreenState;
+
+            _endScreen.StartScreenState = _startScreenState;
+            _endScreen.PlayingState = _playingState;
+            _endScreen.EndScreenState = _endScreenState;
+
+            _gameStateMachine.InitialState = GameState.StartScreenState;
         }
 
 
@@ -69,6 +111,7 @@ namespace DAE.GameSystem
                     {
                         _actionManager.Action(_playerPiece, e.Position, _currentCard.StoredCardType);
 
+                        _usedCards.Add(_currentCard);
                         _currentCard.Used();
                         _currentCard = null;
                         DrawCard();
@@ -82,6 +125,15 @@ namespace DAE.GameSystem
                     foreach (var position in isolatedPositions)
                     {
                         position.PositionDeactivated(this, e);
+                    }
+
+                    if (_playerObject.activeSelf == false)
+                    {
+                        EndGame();
+                        foreach (var Card in _usedCards)
+                        {
+                            Debug.Log($"Used {Card._cardType}");
+                        }
                     }
                 };
 
@@ -149,7 +201,7 @@ namespace DAE.GameSystem
         {
             if (_turns > 0)
             {
-                var cardNumber = _random.Next(0, 4);
+                var cardNumber = _random.Next(0, 5);
                 _turns -= 1;
                 switch (cardNumber)
                 {
@@ -177,6 +229,13 @@ namespace DAE.GameSystem
                     case 3:
                         var beam = Instantiate(_beam, _playerhand.transform);
                         beam.GetComponent<Card>().BeginDrag += (s, e) =>
+                        {
+                            _currentCard = e.Card;
+                        };
+                        return;
+                    case 4:
+                        var bomb = Instantiate(_bomb, _playerhand.transform);
+                        bomb.GetComponent<Card>().BeginDrag += (s, e) =>
                         {
                             _currentCard = e.Card;
                         };
@@ -221,6 +280,14 @@ namespace DAE.GameSystem
                     _currentCard = e.Card;
                 };
             }
+        }
+        public void StartGame()
+        {
+            _playingScreen.OnEnter();
+        }
+        public void EndGame()
+        {
+            _endScreen.OnEnter();
         }
     }
 }

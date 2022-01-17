@@ -14,6 +14,7 @@ namespace DAE.HexSystem
         Teleport,
         Slash,
         Beam,
-        Push
+        Push,
+        Bomb
     }
 }

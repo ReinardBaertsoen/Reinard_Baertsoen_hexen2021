@@ -125,8 +125,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f790bc8c6b14ff54280bde14df137d8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parentToReturnTo: {fileID: 0}
-  placeholderParent: {fileID: 0}
+  _parentToReturnTo: {fileID: 0}
+  _placeholderParent: {fileID: 0}
   _cardType: 0
 --- !u!1 &115016
 GameObject:

@@ -46,7 +46,7 @@ namespace DAE.HexSystem
                 var isOk = validators.All((v) => v(_board, _grid, _piece, nextPosition));
                 if (!isOk)
                     return this;
-                
+
                 _validPositions.Add(nextPosition);
 
                 nextQCoordinate += qOffset;
@@ -191,6 +191,7 @@ namespace DAE.HexSystem
 
             return this;
         }
+
         public int PosNegZero(int number)
         {
             if (number > 0)

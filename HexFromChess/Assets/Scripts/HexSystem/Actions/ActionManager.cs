@@ -85,12 +85,9 @@ namespace DAE.HexSystem
                 .Collect()));
             _actions.Add(CardType.Teleport, new TeleportAction<TCard, TPiece>(
                 (b, g, pi, po, c) => new ActionHelper<TCard, TPiece>(b, g, pi, po, c)
-                .TopLeft(0)
-                .TopRight(0)
-                .BottomLeft(0)
-                .BottomRight(0)
-                .Left(0)
-                .Right(0)
+                .Collect()));
+            _actions.Add(CardType.Bomb, new BombAction<TCard, TPiece>(
+                (b, g, pi, po, c) => new ActionHelper<TCard, TPiece>(b, g, pi, po, c)
                 .Collect()));
         }
 
@@ -135,6 +132,9 @@ namespace DAE.HexSystem
                 .IsolatedBottomRight(po, 0)
                 .IsolatedLeft(po, 0)
                 .IsolatedRight(po, 0)
+                .Collect()));
+            _isolatedAcions.Add(CardType.Bomb, new BombAction<TCard, TPiece>(
+                (b, g, pi, po, c) => new ActionHelper<TCard, TPiece>(b, g, pi, po, c)
                 .Collect()));
         }
     }

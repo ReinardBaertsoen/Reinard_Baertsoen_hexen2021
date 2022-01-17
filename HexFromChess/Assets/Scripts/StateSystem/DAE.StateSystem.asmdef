@@ -1,11 +1,7 @@
 {
-    "name": "DAE.GameSystem",
+    "name": "DAE.StateSystem",
     "rootNamespace": "",
-    "references": [
-        "GUID:8ff62e96e7ad7c3488c009c1e7cd200c",
-        "GUID:719e17996393d1c45a6ca4d23ea42456",
-        "GUID:9791cf4f554319048be5717e16731e38"
-    ],
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
